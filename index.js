@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     // Add the Firebase URL
@@ -27,14 +27,45 @@ addButtonEl.addEventListener("click", function(){
 
     // console.log(`${inputValue} added to database!`)
 
-    // Clear the input field again
-    inputFieldEl.value = "Enter"
-
-    addItemToList(inputValue)
+    // Clear the input field
+    inputFieldEl.value = ""
 })
 
-function addItemToList(itemValue){
+// Get the snapshot - state of db at current time
+onValue(itemsInDB, function(snapshot){
+    // Clear the list from the previous snapshop
+    shopListEl.innerHTML = ""
+
+    // Convert object to array if snapshot is not empty
+    if(snapshot.exists()){
+        let itemsArr = Object.entries(snapshot.val())
+        itemsArr.forEach((ele) => {
+            addItemToList(ele, itemsInDB)
+        });
+    } else {
+        shopListEl.innerHTML = "No items in list"
+    }
+
+})
+
+function addItemToList(item){
+    // Decode item into its key and value
+    const [key, val] = item
+
+    // Create a list item
     var li = document.createElement("li")
-    li.appendChild(document.createTextNode(itemValue))
+    // Add the text to this element
+    li.appendChild(document.createTextNode(val))
+
+    // Add a listener event to delete item if double clicked on
+    li.addEventListener("dblclick", function(){
+        // Get the reference to the item location in db
+        var dbLocation = ref(database, `Items/${key}`)
+
+        // Remove it 
+        remove(dbLocation)
+    })
+
+    // Append this element into the list
     shopListEl.append(li)
 }
