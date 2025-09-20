@@ -1,11 +1,14 @@
+import dotenv from 'dotenv'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+dotenv.config({path: '../.env'})
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCUe07FPbq5ko_W2Lt6IynMEhtnDcRonm4",
+  apiKey: process.env.apiKey,
   authDomain: "fir-project-4877c-dev.firebaseapp.com",
   databaseURL: "https://fir-project-4877c-dev-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "fir-project-4877c-dev",
