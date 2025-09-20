@@ -2,7 +2,7 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
-    background-color: #EEF0F4;
+    background-color: #19191b;
     color: #432000;
     user-select: none;
 }
@@ -34,7 +34,7 @@ input{
 
 button{
     color: #FDFDFD;
-    background-color: #AC485A;
+    background-color: #9d515f;
     border: 0;
     padding: 15px;
     border-radius: 10px;
@@ -44,7 +44,7 @@ button{
 }
 
 button:hover {
-    background-color: #432000;
+    background-color: #ad6c2f;
     cursor: pointer;
 }
 
@@ -67,6 +67,6 @@ ul li {
 }
 
 ul li:hover {
-    background-color: #FFECC7;
+    background-color: #d7d0c2;
     cursor: pointer;
 }
